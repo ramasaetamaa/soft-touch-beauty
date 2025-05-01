@@ -2,9 +2,16 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,11 +60,36 @@ const Navbar = () => {
             Book Now
           </Button>
           
-          <button className="block md:hidden p-2">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          {/* Mobile Menu Dropdown */}
+          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+            <DropdownMenuTrigger asChild>
+              <button className="block md:hidden p-2" aria-label="Menu">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                </svg>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-md mt-2">
+              <DropdownMenuItem asChild>
+                <a href="#home" className="w-full px-3 py-2 hover:bg-accent">Home</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="#services" className="w-full px-3 py-2 hover:bg-accent">Services</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="#products" className="w-full px-3 py-2 hover:bg-accent">Products</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="#about" className="w-full px-3 py-2 hover:bg-accent">About</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="#contact" className="w-full px-3 py-2 hover:bg-accent">Contact</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="#" className="w-full px-3 py-2 text-primary-foreground font-medium hover:bg-accent">Book Now</a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
